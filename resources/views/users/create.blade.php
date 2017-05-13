@@ -1,5 +1,4 @@
 @extends('layout.defalut')
-@section('title','Home')
 @section('content')
     <div class="jumbotron">
         <h1>Hello Laravel</h1>
@@ -10,8 +9,10 @@
             Everything start from here!
         </p>
         <p>
-            <!-- ע�ᰴť -->
-            <a class="btn btn-lg btn-success" href="#" role="button">Sign up now !</a>
+            <!-- ע�ᰴť-->
+            <a class="btn btn-lg btn-success" href="{{ route('signup') }}" role="button">Sign up now !</a>
         </p>
     </div>
+
+
 @stop
