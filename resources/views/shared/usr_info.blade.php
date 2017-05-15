@@ -1,7 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2017/5/14
- * Time: 16:36
- */
+<a href="{{ route('users.show', $user->id) }}">
+    <img src="{{ $user->gravatar('140') }}" alt="{{ $user->name }}" class="gravatar"/>
+</a>
+<h1>{{ $user->name }}</h1>
