@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.defalut')
 @section('title', $user->name)
 @section('content')
     <div class="row">
