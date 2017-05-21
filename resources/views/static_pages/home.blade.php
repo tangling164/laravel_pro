@@ -1,4 +1,4 @@
-@extends('layout.defalut')
+@extends('layouts.default')
 @section('title','Home')
 @section('content')
     <div class="jumbotron">
