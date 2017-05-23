@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -43,9 +44,34 @@ class UsersController extends Controller
             'email'=>$request->email,
             'password'=>bcrypt($request->password),
         ]);
-            Auth::login($user);
-            session()->flash('sucess','Welcome You have registered successfully!');
-            return redirect()->route('users.show',[$user]);
+            $this->sendEmailConfirmationTo($user);
+            session()->flash('success','Verify email has been sent to your registered email ,please check');
+            return redirect('/');
+    }
+    //邮件发送
+    protected function sendEmailConfirmationTo($user)
+    {
+        $view = 'emails.confirm';
+        $data = compact('user');
+        $from = '314841639@qq.com';
+        $name = 'tangling164';
+        $to = $user->email;
+        $subject = 'Thank you for registering !Please confirm your email addresds';
+        Mail::send($view,$data,function($message) use($from,$name,$to,$subject){
+           $message->from($from,$name)->to($to)->subject($subject);
+        });
+    }
+//用户激活
+    public function confirmEmail($token)
+    {
+        $user = User::where('activation_token',$token)->firstOrFail();
+        $user->activated = true;
+        $user->activation_token = null;
+        $user->save();
+        Auth::login($user);
+        session()->flash('sucess','Activation success!');
+        return redirect()->route('users.show',[$user]);
+
     }
 
     public function edit($id)

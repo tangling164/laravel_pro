@@ -32,8 +32,15 @@ class SessionsController extends Controller
             'password'=>$request->input('password'), ];
 
         if (Auth::attempt($credentials,$request->has('remeber'))) {
-            session()->flash('success', 'Welcome!');
-            return redirect()->intended(route('users.show', [Auth::user()]));
+            if(Auth::user()->activated){
+                session()->flash('success', 'Welcome!');
+                return redirect()->intended(route('users.show', [Auth::user()]));
+            }else{
+                Auth::logout();
+                session()->flash('warning','You account is not activated,please check the registered mail in the mailbox to activated');
+                return redirect('/');
+            }
+
         } else {
             session()->flash('danger', 'Incorrect username or password.');
             return redirect()->back();
