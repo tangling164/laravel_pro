@@ -18,6 +18,7 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
     protected $fillable = ['name','email','password'];
     protected $hidden = ['password','remeber_token'];
 
+    //生成用户令牌
     public static function boot()
     {
         parent::boot();
@@ -26,6 +27,18 @@ class User extends Model implements AuthenticatableContract,AuthorizableContract
         });
     }
 
+    /**
+     * @return mixed
+     */
+    public function feed()
+    {
+        return $this->statuses()
+                    ->orderBy('created_at','desc');
+    }
+    public function statuses()
+    {
+        return $this->hasMany(Status::class);
+    }
     public function gravatar($size = '100')
     {
         $hash = md5(strtolower(trim($this->attributes['email'])));

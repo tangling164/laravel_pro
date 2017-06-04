@@ -17,6 +17,7 @@ get('/help','StaticPagesController@help')->name('help');
 get('/about','StaticPagesController@about')->name('about');
 get('signup','UsersController@create')->name('signup');
 resource('users','UsersController');
+//get('/users/{id}','UsersController@show')->name('users.show');
 get('/users/{id}/edit','UsersController@edit')->name('users.edit');
 get('login','SessionsController@create')->name('login');
 post('login','SessionsController@store')->name('login');
@@ -27,3 +28,4 @@ get('password/email','Auth\PasswordController@getEmail')->name('password.reset')
 post('password/email','Auth\PasswordController@postEmail')->name('password.reset');
 get('password/reset/{token}','Auth\PasswordController@getReset')->name('password.edit');
 post('password/reset','Auth\PasswordController@postReset')->name('password.update');
+resource('statuses','StatusesController',['only'=>['store','destroy']]);
