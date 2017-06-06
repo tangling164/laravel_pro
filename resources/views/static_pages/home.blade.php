@@ -14,6 +14,9 @@
                 <section class="user_info">
                     @include('shared.user_info', ['user' => Auth::user()])
                 </section>
+                <section class="stats">
+                @include('shared.stats', ['user' => Auth::user()])
+                </section>
             </aside>
         </div>
     @else
@@ -26,7 +29,7 @@
                 Everything start from here!
             </p>
             <p>
-                <!-- ×¢²á -->
+                <!-- æ³¨å†Œ -->
                 <a class="btn btn-lg btn-success" href="{{ route('signup') }}" role="button">Sign up now !</a>
             </p>
         </div>

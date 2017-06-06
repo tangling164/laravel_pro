@@ -51,7 +51,7 @@ class UsersController extends Controller
             session()->flash('success','Verify email has been sent to your registered email ,please check');
             return redirect('/');
     }
-    //” º˛∑¢ÀÕ
+    //ÈÇÆ‰ª∂ÂèëÈÄÅ
     protected function sendEmailConfirmationTo($user)
     {
         $view = 'emails.confirm';
@@ -64,7 +64,7 @@ class UsersController extends Controller
            $message->from($from,$name)->to($to)->subject($subject);
         });
     }
-//”√ªßº§ªÓ
+//Áî®Êà∑ÊøÄÊ¥ª
     public function confirmEmail($token)
     {
         $user = User::where('activation_token',$token)->firstOrFail();
@@ -113,4 +113,20 @@ class UsersController extends Controller
         return back();
     }
 
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followings()->paginate(30);
+        $title = 'ÂÖ≥Ê≥®ÁöÑ‰∫∫';
+        return view('users.show_follow',compact('users','title'));
+
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followers()->paginate(30);
+        $title = 'Á≤â‰∏ù';
+        return view('users.show_follow',compact('users','title'));
+    }
 }
